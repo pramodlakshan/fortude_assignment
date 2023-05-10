@@ -1,0 +1,9 @@
+{
+	"name": "Frtude-assignment-ADF",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8c1be3a4-740e-4585-a57d-dc99a5e5bc98",
+		"tenantId": "327d636d-7841-409e-8ca3-985a5973983b"
+	}
+}
