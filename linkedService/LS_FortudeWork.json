@@ -1,0 +1,17 @@
+{
+	"name": "LS_FortudeWork",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=DESKTOP-UT9P933;initial catalog=AdventureWorksLT2019",
+			"userName": "DESKTOP-UT9P933\\Nilanka",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1YWU2OGJjZi1mYzE0LTQ0ZTEtYjA0MS03MTllYjBmNmFlNDMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "fortude-work-sfh",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
