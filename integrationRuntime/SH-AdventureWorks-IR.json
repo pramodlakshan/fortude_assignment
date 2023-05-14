@@ -1,0 +1,6 @@
+{
+	"name": "SH-AdventureWorks-IR",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
