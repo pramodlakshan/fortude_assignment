@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=True;data source=DESKTOP-UT9P933;initial catalog=AdventureWorksLT2019",
+			"connectionString": "integrated security=True;data source=DESKTOP-UT9P933;initial catalog=AdventureWorks2019",
 			"userName": "DESKTOP-UT9P933\\Nilanka",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2NTVjNzM3Zi0zMmZmLTQ1YzEtYjNmNi0xMWM4NWFlZTM0MTMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmOTJhNjc4Ny05MDhjLTQ1YzctYWNmMS03N2M2ZGQzNjA1MTYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "SH-AdventureWorks-IR",
