@@ -1,5 +1,5 @@
 {
-	"name": "Ds_SourceTerritoryData",
+	"name": "Ds_SourceSalesOrderDetailData",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_FortudeWork",

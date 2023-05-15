@@ -1,5 +1,5 @@
 {
-	"name": "Ds_TargetWh",
+	"name": "Ds_TargetProducts",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Ls_TargetWh",
@@ -112,7 +112,7 @@
 		],
 		"typeProperties": {
 			"schema": "Analytics",
-			"table": "Dim_SalesTerritory"
+			"table": "Dim_Product"
 		}
 	}
 }
