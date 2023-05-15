@@ -53,7 +53,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT\nP.ProductID AS ProductID,\nP.[Name] AS ProductName,\nISNULL(PC.[Name],'N/A') AS ProductCategory,\nISNULL(PSC.[Name],'N/A') AS ProductSubCategory,\nP.ProductNumber AS ProductNumber,\nP.SafetyStockLevel AS SafetyStockLevel,\nP.StandardCost AS StandardCost,\nP.ListPrice AS ListPrice,\nP.ModifiedDate AS ProductModifiedTs,\nPC.ModifiedDate AS ProductCategoryModifiedTs,\nPSC.ProductSubcategory AS ProductSubcategoryModifiedTs\nFROM Production.Product P\nLEFT JOIN Production.ProductSubcategory PSC ON P.ProductSubcategoryID = PSC.ProductSubcategoryID\nLEFT JOIN Production.ProductCategory PC ON PSC.ProductCategoryID = PC.ProductCategoryID",
+						"sqlReaderQuery": "SELECT\nP.ProductID AS ProductID,\nP.[Name] AS ProductName,\nISNULL(PC.[Name],'N/A') AS ProductCategory,\nISNULL(PSC.[Name],'N/A') AS ProductSubCategory,\nP.ProductNumber AS ProductNumber,\nP.SafetyStockLevel AS SafetyStockLevel,\nP.StandardCost AS StandardCost,\nP.ListPrice AS ListPrice,\nP.ModifiedDate AS ProductModifiedTs,\nPC.ModifiedDate AS ProductCategoryModifiedTs,\nPSC.ModifiedDate AS ProductSubcategoryModifiedTs\nFROM Production.Product P\nLEFT JOIN Production.ProductSubcategory PSC ON P.ProductSubcategoryID = PSC.ProductSubcategoryID\nLEFT JOIN Production.ProductCategory PC ON PSC.ProductCategoryID = PC.ProductCategoryID",
 						"queryTimeout": "00:15:00",
 						"partitionOption": "None"
 					},
@@ -66,6 +66,148 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProductID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ProductID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductSubCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SafetyStockLevel",
+									"type": "Int16",
+									"physicalType": "smallint"
+								},
+								"sink": {
+									"name": "SafetyStockLevel",
+									"type": "Int16",
+									"physicalType": "smallint"
+								}
+							},
+							{
+								"source": {
+									"name": "StandardCost",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								},
+								"sink": {
+									"name": "StandardCost",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								}
+							},
+							{
+								"source": {
+									"name": "ListPrice",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								},
+								"sink": {
+									"name": "ListPrice",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								}
+							},
+							{
+								"source": {
+									"name": "ProductModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductCategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubcategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductSubcategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
