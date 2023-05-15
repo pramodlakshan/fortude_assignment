@@ -53,7 +53,7 @@
 							"tableName": "SalesTerritory"
 						}
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
@@ -67,7 +67,7 @@
 						]
 					},
 					{
-						"activity": "LookupNewWaterMarkActivity ",
+						"activity": "LookupNewWaterMarkActivity",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -84,7 +84,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT\nTerritoryID AS TerritoryKey,\nName AS Territory,\nCountryRegionCode AS CountryRegionCode,\nCONVERT(INT, CONVERT(VARCHAR(8), ModifiedDate, 112)) AS ModifiedDateKey\nFROM Sales.SalesTerritory\nWHERE ModifiedDate > '@{activity('LookupOldWaterMarkActivity').output.firstRow.LastRunCheckpoint}' and ModifiedDate <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+						"sqlReaderQuery": {
+							"value": "SELECT\nTerritoryID AS TerritoryKey,\nName AS Territory,\nCountryRegionCode AS CountryRegionCode,\nCONVERT(INT, CONVERT(VARCHAR(8), ModifiedDate, 112)) AS ModifiedDateKey\nFROM Sales.SalesTerritory\nWHERE ModifiedDate > '@{activity('LookupOldWaterMarkActivity').output.firstRow.LastRunCheckpoint}' and ModifiedDate <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+							"type": "Expression"
+						},
 						"queryTimeout": "00:15:00",
 						"partitionOption": "None"
 					},
