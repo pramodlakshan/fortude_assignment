@@ -85,7 +85,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\nTerritoryID AS TerritoryKey,\nName AS Territory,\nCountryRegionCode AS CountryRegionCode,\nCONVERT(INT, CONVERT(VARCHAR(8), ModifiedDate, 112)) AS ModifiedDateKey\nFROM Sales.SalesTerritory\nWHERE ModifiedDate > '@{activity('LookupOldWaterMarkActivity').output.firstRow.LastRunCheckpoint}' and ModifiedDate <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+							"value": "SELECT\nTerritoryID AS TerritoryID,\nName AS Territory,\nCountryRegionCode AS CountryRegionCode,\nModifiedDate AS SalesTerritoryModifiedDateTs\nFROM Sales.SalesTerritory\nWHERE ModifiedDate > '@{activity('LookupOldWaterMarkActivity').output.firstRow.LastRunCheckpoint}' and ModifiedDate <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "00:15:00",
@@ -93,8 +93,15 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"TerritoryID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -102,12 +109,12 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "TerritoryKey",
+									"name": "TerritoryID",
 									"type": "Int32",
 									"physicalType": "int"
 								},
 								"sink": {
-									"name": "TerritoryKey",
+									"name": "TerritoryID",
 									"type": "Int32",
 									"physicalType": "int"
 								}
@@ -138,14 +145,14 @@
 							},
 							{
 								"source": {
-									"name": "ModifiedDateKey",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "SalesTerritoryModifiedDateTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								},
 								"sink": {
-									"name": "ModifiedDateKey",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "SalesTerritoryModifiedDateTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							}
 						],
