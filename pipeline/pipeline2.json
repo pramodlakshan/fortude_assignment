@@ -220,6 +220,313 @@
 					"referenceName": "LS_FortudeWork",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "CD_Dim_SalesTerritory_Product",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LookupOldWaterMarkActivityProduct",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LookupNewWaterMarkActivityProduct",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\nP.ProductID AS ProductID,\nP.[Name] AS ProductName,\nISNULL(PC.[Name],'N/A') AS ProductCategory,\nISNULL(PSC.[Name],'N/A') AS ProductSubCategory,\nP.ProductNumber AS ProductNumber,\nP.SafetyStockLevel AS SafetyStockLevel,\nP.StandardCost AS StandardCost,\nP.ListPrice AS ListPrice,\nP.ModifiedDate AS ProductModifiedTs,\nPC.ModifiedDate AS ProductCategoryModifiedTs,\nPSC.ModifiedDate AS ProductSubcategoryModifiedTs\nFROM Production.Product P\nLEFT JOIN Production.ProductSubcategory PSC ON P.ProductSubcategoryID = PSC.ProductSubcategoryID\nLEFT JOIN Production.ProductCategory PC ON PSC.ProductCategoryID = PC.ProductCategoryID\nWHERE P.ModifiedDate > '@{activity('LookupOldWaterMarkActivityProduct').output.firstRow.LastRunCheckpoint}' and P.ModifiedDate <= '@{activity('LookupNewWaterMarkActivityProduct').output.firstRow.NewWatermarkvalue}'\nOR PC.ModifiedDate > '@{activity('LookupOldWaterMarkActivityProduct').output.firstRow.LastRunCheckpoint}' and PC.ModifiedDate <= '@{activity('LookupNewWaterMarkActivityProduct').output.firstRow.NewWatermarkvalue}'\nOR PSC.ModifiedDate > '@{activity('LookupOldWaterMarkActivityProduct').output.firstRow.LastRunCheckpoint}' and PSC.ModifiedDate <= '@{activity('LookupNewWaterMarkActivityProduct').output.firstRow.NewWatermarkvalue}'\n",
+							"type": "Expression"
+						},
+						"queryTimeout": "00:15:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"ProductID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProductID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ProductID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductSubCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ProductNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SafetyStockLevel",
+									"type": "Int16",
+									"physicalType": "smallint"
+								},
+								"sink": {
+									"name": "SafetyStockLevel",
+									"type": "Int16",
+									"physicalType": "smallint"
+								}
+							},
+							{
+								"source": {
+									"name": "StandardCost",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								},
+								"sink": {
+									"name": "StandardCost",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								}
+							},
+							{
+								"source": {
+									"name": "ListPrice",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								},
+								"sink": {
+									"name": "ListPrice",
+									"type": "Decimal",
+									"physicalType": "money",
+									"scale": 4,
+									"precision": 19
+								}
+							},
+							{
+								"source": {
+									"name": "ProductModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductCategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubcategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ProductSubcategoryModifiedTs",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Ds_SourceProductData",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Ds_TargetProducts",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "Analytics",
+							"table": "Dim_Product"
+						}
+					}
+				]
+			},
+			{
+				"name": "LookupOldWaterMarkActivityProduct",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "00:05:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "WatermarkDataset",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "LookupNewWaterMarkActivityProduct",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select MAX(ModifiedDate) as NewWatermarkvalue from Sales.SalesTerritory",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Ds_SourceTerritoryData",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "Sales",
+							"tableName": "SalesTerritory"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "StoredProceduretoWriteWatermarkProduct",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CD_Dim_SalesTerritory_Product",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_write_watermark_product]",
+					"storedProcedureParameters": {
+						"ModifiedDate": {
+							"value": "@{activity('LookupNewWaterMarkActivityProduct').output.firstRow.NewWatermarkvalue}",
+							"type": "DateTime"
+						},
+						"TableName": {
+							"value": "@{activity('LookupOldWaterMarkActivityProduct').output.firstRow.TableName}",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_FortudeWork",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
