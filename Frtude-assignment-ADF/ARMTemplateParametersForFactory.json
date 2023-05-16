@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Frtude-assignment-ADF"
+		},
+		"LS_FortudeWork_connectionString": {
+			"value": "Integrated Security=True;Data Source=DESKTOP-UT9P933;Initial Catalog=AdventureWorks2019"
+		},
+		"LS_FortudeWork_password": {
+			"value": ""
+		},
+		"Ls_TargetWh_connectionString": {
+			"value": ""
+		},
+		"LS_FortudeWork_properties_typeProperties_userName": {
+			"value": "DESKTOP-UT9P933\\Nilanka"
+		}
+	}
+}
