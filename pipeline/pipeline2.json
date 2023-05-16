@@ -222,7 +222,7 @@
 				}
 			},
 			{
-				"name": "CD_Dim_SalesTerritory_Product",
+				"name": "CD_Dim_Product",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -486,7 +486,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "CD_Dim_SalesTerritory_Product",
+						"activity": "CD_Dim_Product",
 						"dependencyConditions": [
 							"Succeeded"
 						]
