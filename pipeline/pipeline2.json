@@ -41,7 +41,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "select MAX(ModifiedDate) as NewWatermarkvalue from Production.Product",
+						"sqlReaderQuery": "select MAX(ModifiedDate) as NewWatermarkvalue from Sales.SalesTerritory",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
