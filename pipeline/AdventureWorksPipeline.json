@@ -222,7 +222,7 @@
 				}
 			},
 			{
-				"name": "CD_Dim_Product",
+				"name": "CD_Dim_Product_Incremental",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -486,7 +486,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "CD_Dim_Product",
+						"activity": "CD_Dim_Product_Incremental",
 						"dependencyConditions": [
 							"Succeeded"
 						]
